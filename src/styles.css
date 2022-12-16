@@ -4,3 +4,18 @@
     padding: 0;
     box-sizing: border-box;
 }
+body{
+    background-color: #303030;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+app-root{
+    margin-top: 100px;
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
