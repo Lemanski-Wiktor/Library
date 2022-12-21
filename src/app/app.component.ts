@@ -1,39 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { NgxXmlToJsonService } from 'ngx-xml-to-json';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { MagazinesNamesService } from './magazines-names.service';
+import { NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent{
   title = 'Library';
-  public names: any;
-  public images: string[] = []
+  images: any;
+  magazineName = ''
+  isActiveLibrary = false;
 
-  constructor(private ngxXmlToJsonService: NgxXmlToJsonService) {
-    const options = {
-      textKey: 'text',
-      attrKey: 'attr',
-      cdataKey: 'cdata',
-    };
-
-    fetch('./assets/czasopisma.xml')
-      .then((response) => response.text())
-      .then((data) => {
-        const jsonObj = this.ngxXmlToJsonService.xmlToJson(data, options);
-        this.names = jsonObj.czasopisma.zmienne;
-        for(let name in this.names){
-          if(name != 'text'){
-            this.images.push(`http://atarionline.pl/biblioteka/czasopisma/img/${this.names[name].src.text}`)
-          }
+  constructor(private _magazinesNames: MagazinesNamesService, private router: Router) {
+    this.router.events.forEach(e =>{
+      if(e instanceof NavigationStart){
+        if(e.url === '/'){
+          this.isActiveLibrary = true
+        }else{
+          this.isActiveLibrary=false
         }
-      })
-      .catch(console.error);
-      console.log(this.images)
+      }
+    })
   }
+
   ngOnInit(): void {
-    
+    this._magazinesNames.getMagazinesImg().then(data => {
+      this.images=data; 
+    })
   }
+  showYears(magazineName: string){
+    this.magazineName = magazineName
+    this.router.navigate([magazineName])
+  }
+  onOutletLoaded(component: any) {
+    component.nameMagazine = this.magazineName;
+  } 
 }

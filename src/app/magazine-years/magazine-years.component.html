@@ -1,0 +1,9 @@
+<div id="content">
+    <h1>{{name}}</h1>
+
+    <ng-container *ngFor="let year of years" id="content">
+        <div (click)="showDetails(year)">{{year}}</div><br>
+    </ng-container>
+
+    <a routerLink="/"><button>Wróć</button></a>
+</div>

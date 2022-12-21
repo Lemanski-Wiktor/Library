@@ -1,3 +1,7 @@
-<div *ngFor="let img of images" id="content">
-    <img src="{{img}}" alt="photo"><br>
+<div *ngIf="isActiveLibrary" id="content">
+    <div *ngFor="let img of images" id="content">
+            <img (click)="showYears(img.klik.text)" src="http://atarionline.pl/biblioteka/czasopisma/img/{{img.src.text}}" alt="photo">
+        <br><br>
+    </div>
 </div>
+<router-outlet (activate)="onOutletLoaded($event)"></router-outlet>

@@ -1,0 +1,35 @@
+<div id="content">
+    <h1>{{name}} - {{year}}</h1>
+
+    <table>
+        <tr>
+            <th>Strona tytułowa</th>
+            <th>Plik</th>
+            <th>Pismo</th>
+            <th>Darczyńcy</th>
+        </tr>
+        
+        <ng-container *ngFor="let el of currentYearMagazines">
+            <tr>
+                <td>
+                    <img src="https://atarionline.pl/biblioteka/czasopisma/{{name}}/{{el.miniaturka.text}}" alt="photo">
+                </td>
+                <td class="center">
+                    <p><strong>Format:</strong> {{el.format.text}}</p><br>
+                    <p><strong>Stron:</strong> {{el.stron.text}}</p>
+                </td>
+                <td class="center">
+                    <p><strong>Nazwa:</strong> {{el.nazwa.text}}</p><br>
+                    <p><strong>Numer:</strong> {{el.numer.text}}</p>
+                </td>
+                <td class="center">
+                    <p><strong>Skan:</strong> {{el.skan.text}}</p><br>
+                    <p><strong>Przetworzenie:</strong> {{el.przetworzenie.text}}</p><br>
+                    <p><strong>Podesłał:</strong> {{el.podeslal.text}}</p>
+                </td>  
+            </tr>
+        </ng-container>
+    </table>
+
+    <a routerLink="/{{name}}"><button>Wróć</button></a>
+</div>
