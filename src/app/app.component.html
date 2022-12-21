@@ -1,4 +1,4 @@
-<div *ngIf="isActiveLibrary" id="content">
+<div *ngIf="isActiveLibrary || returnBool()" id="content">
     <div *ngFor="let img of images" id="content">
             <img (click)="showYears(img.klik.text)" src="http://atarionline.pl/biblioteka/czasopisma/img/{{img.src.text}}" alt="photo">
         <br><br>

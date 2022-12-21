@@ -16,18 +16,20 @@ export class MagazineYearsComponent implements OnInit{
   constructor(private route: ActivatedRoute,private _magazinesNames: MagazinesNamesService, private router: Router) { 
 
   }
-  ngOnInit(){
-    console.log(this.nameMagazine)
-    this._magazinesNames.getMagazinesYears().then(data => { this.years=data;
-      
+  ngOnInit(){    
+    this._magazinesNames.getMagazinesYears().then(data => { this.years=data;      
       this.route.paramMap.subscribe(params => {
-        this.years = this.years.get(params.get("name")).split(',')
-        this.name = params.get('name') || ""
+        this.name = params.get("name") || ""
+        if(this.years.get(params.get("name")) == undefined){
+          this.router.navigate(["/"])
+        }else{
+          this.years = this.years.get(params.get("name")).split(',')
+        }
       })
     })    
   }
   showDetails(year: string){
     this.year = year
-    this.router.navigate([this.nameMagazine+"/"+this.year])
+    this.router.navigate([this.name+"/"+this.year])
   }
 }

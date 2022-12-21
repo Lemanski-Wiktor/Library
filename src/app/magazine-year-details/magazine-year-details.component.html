@@ -17,6 +17,7 @@
                 <td class="center">
                     <p><strong>Format:</strong> {{el.format.text}}</p><br>
                     <p><strong>Stron:</strong> {{el.stron.text}}</p>
+                    <a href="https://atarionline.pl/biblioteka/czasopisma/{{name}}/{{el.plik.text}}">plik</a>
                 </td>
                 <td class="center">
                     <p><strong>Nazwa:</strong> {{el.nazwa.text}}</p><br>
@@ -30,6 +31,8 @@
             </tr>
         </ng-container>
     </table>
+
+    <div *ngIf="currentYearMagazines.length == 0" style="margin-top: 20px;">Brak danych</div>
 
     <a routerLink="/{{name}}"><button>Wróć</button></a>
 </div>

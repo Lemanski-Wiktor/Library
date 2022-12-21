@@ -37,7 +37,7 @@ export class MagazinesNamesService {
               if(key === 'zmienne'){
                 // console.log(this.names.zmienne)
                 for(const[key,value] of Object.entries(this.names.zmienne)){
-                  if(key!='text'){
+                  if(key!='text' && this.images.length < 11){
                     this.images.push(value as Object) 
                   }
                 }
@@ -95,6 +95,9 @@ export class MagazinesNamesService {
                 for(const[key1,value1] of Object.entries(this.names)){
                   if(name != 'zmienne' && name != 'lata' && name != 'text'){
                     this.details.set(name,this.names[name])
+
+                    // console.log(value1);
+                    
                   }
                 }
               }

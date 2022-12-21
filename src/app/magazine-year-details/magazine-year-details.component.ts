@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MagazinesNamesService } from '../magazines-names.service';
 
 @Component({
@@ -11,10 +11,11 @@ export class MagazineYearDetailsComponent {
   details:any;
   name = ""
   year = ""
+  goodYears:any = []
   magazines: object[] = []
   currentYearMagazines: any[] = []
 
-  constructor(private _magazinesNames: MagazinesNamesService, private route: ActivatedRoute) { 
+  constructor(private _magazinesNames: MagazinesNamesService, private route: ActivatedRoute, private router: Router) { 
 
   }
   ngOnInit(){
@@ -24,7 +25,14 @@ export class MagazineYearDetailsComponent {
         this.name = params.get("name") || "";
         this.year = params.get("year") || ""
         
-        this.details = this.details.get(params.get("name"))
+        console.log(params.get("name"));
+
+        if(this.details.get(params.get("name")) == undefined){
+          this.router.navigate(["/"])
+        }else{
+          this.details = this.details.get(params.get("name"))
+        }
+        
         for(const [key,value] of Object.entries(this.details)){
           if(key!='text'){
             this.magazines.push(value as Object)
@@ -34,6 +42,8 @@ export class MagazineYearDetailsComponent {
         for(const magazine of this.magazines){
           for(const [key,value] of Object.entries(magazine))
           if(key === 'attr'){
+            this.goodYears.push(value.rok)
+            
             if(value.rok === this.year){
               if(Object.keys(magazine).length > 1){
                 this.currentYearMagazines.push(magazine as any)
@@ -41,7 +51,10 @@ export class MagazineYearDetailsComponent {
             }
           }
         }
-        console.log(this.currentYearMagazines);
+        if(!this.goodYears.includes(this.year)){
+          this.router.navigate(["/"])
+        }
+        // console.log(this.currentYearMagazines);
       })
     })    
   }

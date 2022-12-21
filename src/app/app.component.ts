@@ -11,24 +11,30 @@ export class AppComponent{
   title = 'Library';
   images: any;
   magazineName = ''
-  isActiveLibrary = false;
+  isActiveLibrary = true;
 
   constructor(private _magazinesNames: MagazinesNamesService, private router: Router) {
     this.router.events.forEach(e =>{
+      
       if(e instanceof NavigationStart){
-        if(e.url === '/'){
+        if(e.url == '/'){
+          
           this.isActiveLibrary = true
         }else{
           this.isActiveLibrary=false
         }
       }
     })
-  }
-
-  ngOnInit(): void {
     this._magazinesNames.getMagazinesImg().then(data => {
       this.images=data; 
     })
+  }
+
+  ngOnInit(): void {
+    
+  }
+  returnBool(): boolean{
+    return this.router.url == "/"
   }
   showYears(magazineName: string){
     this.magazineName = magazineName

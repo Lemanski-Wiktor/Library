@@ -5,10 +5,10 @@ import { MagazineYearDetailsComponent } from './magazine-year-details/magazine-y
 import { MagazineYearsComponent } from './magazine-years/magazine-years.component';
 
 const routes: Routes = [
-  {path: '', component:AppComponent},
-  // {path: '**',component:AppComponent},
   {path: ':name', component:MagazineYearsComponent},
-  {path:':name/:year', component: MagazineYearDetailsComponent}
+  {path:':name/:year', component: MagazineYearDetailsComponent},
+  {path: '', pathMatch: 'full', redirectTo:''},
+  {path: '**', redirectTo: '/'}
 ];
 
 @NgModule({
